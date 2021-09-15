@@ -1,1 +1,3 @@
-this is help.
+this is no more help.
+
+it's a guide.
