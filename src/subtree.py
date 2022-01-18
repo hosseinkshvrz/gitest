@@ -152,7 +152,8 @@ def store_subtrees(path, before, after):
     subtree = SubTreeExtractor(a_dot)
     a_subtree = subtree.extract_subtree()
     if len(b_subtree[0]) == 0 and len(a_subtree[0]) == 0:
-        print('!!!!! before or after empty !!!!!')
+        print('!!!!! before and after empty !!!!!')
+        return None
     elif len(b_subtree[0]) == 0:
         b_subtree[0].append('None')
     elif len(a_subtree[0]) == 0:
