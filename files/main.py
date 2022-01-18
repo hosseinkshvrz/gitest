@@ -1,5 +1,4 @@
 print('here')
-print('I')
 print('am')
 
 for i in range(10):

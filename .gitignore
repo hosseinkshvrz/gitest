@@ -1,0 +1,9 @@
+.idea/
+*.pt
+diff/
+gumtree-3.0.0/
+*.pyz
+*/__pycache__/
+requirements.txt
+venv
+*.pkl
