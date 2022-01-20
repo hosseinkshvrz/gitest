@@ -1,7 +1,7 @@
 from pydriller import Git
 
 repo = Git('../repos/bookkeeper')
-commit = repo.get_commit('f737e9b')
+commit = repo.get_commit('002725e')
 lines = 0
 for m in commit.modified_files:
     if m.source_code_before:
