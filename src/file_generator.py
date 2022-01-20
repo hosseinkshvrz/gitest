@@ -1,7 +1,7 @@
 from pydriller import Git
 
 repo = Git('../repos/camel')
-commit = repo.get_commit('58ad1e0')
+commit = repo.get_commit('1ef8402')
 lines = 0
 for m in commit.modified_files:
     if m.source_code_before:

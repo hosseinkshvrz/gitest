@@ -157,7 +157,7 @@ def main(commit):
     metric_size = 0
     message_size = 32
     model = JITGNN(hidden_size, message_size, metric_size)
-    model = torch.load(os.path.join(BASE_PATH, '33_model_best_auc.pt'), map_location=torch.device('cpu'))
+    model = torch.load(os.path.join(BASE_PATH, '34_model_best_auc.pt'), map_location=torch.device('cpu'))
     prob = predict(model, data)
     return prob
 
