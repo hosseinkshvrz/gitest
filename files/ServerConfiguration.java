@@ -17,7 +17,6 @@
  */
 package org.apache.bookkeeper.conf;
 
-import static org.apache.bookkeeper.util.BookKeeperConstants.ENTRYLOG_INDEX_CACHE;
 import static org.apache.bookkeeper.util.BookKeeperConstants.MAX_LOG_SIZE_LIMIT;
 
 import com.google.common.annotations.Beta;
@@ -116,8 +115,6 @@ public class ServerConfiguration extends AbstractConfiguration<ServerConfigurati
             "gcOverreplicatedLedgerMaxConcurrentRequests";
     protected static final String USE_TRANSACTIONAL_COMPACTION = "useTransactionalCompaction";
     protected static final String VERIFY_METADATA_ON_GC = "verifyMetadataOnGC";
-    protected static final String GC_ENTRYLOGMETADATA_CACHE_ENABLED = "gcEntryLogMetadataCacheEnabled";
-    protected static final String GC_ENTRYLOG_METADATA_CACHE_PATH = "gcEntryLogMetadataCachePath";
     // Scrub Parameters
     protected static final String LOCAL_SCRUB_PERIOD = "localScrubInterval";
     protected static final String LOCAL_SCRUB_RATE_LIMIT = "localScrubRateLimit";
@@ -214,8 +211,6 @@ public class ServerConfiguration extends AbstractConfiguration<ServerConfigurati
     protected static final String AUDITOR_ACQUIRE_CONCURRENT_OPEN_LEDGER_OPERATIONS_TIMEOUT_MSEC =
         "auditorAcquireConcurrentOpenLedgerOperationsTimeOutMSec";
     protected static final String REPLICATION_RATE_BY_BYTES = "replicationRateByBytes";
-    protected static final String IN_FLIGHT_READ_ENTRY_NUM_IN_LEDGER_CHECKER = "inFlightReadEntryNumInLedgerChecker";
-
 
     // Worker Thread parameters.
     protected static final String NUM_ADD_WORKER_THREADS = "numAddWorkerThreads";
@@ -484,50 +479,6 @@ public class ServerConfiguration extends AbstractConfiguration<ServerConfigurati
      */
     public ServerConfiguration setVerifyMetadataOnGc(boolean verifyMetadataOnGC) {
         this.setProperty(VERIFY_METADATA_ON_GC, verifyMetadataOnGC);
-        return this;
-    }
-
-    /**
-     * Get whether the bookie is configured to use persistent
-     * entrylogMetadataMap.
-     * @return use persistent entry-log metadata map
-     */
-    public boolean isGcEntryLogMetadataCacheEnabled() {
-        return this.getBoolean(GC_ENTRYLOGMETADATA_CACHE_ENABLED, false);
-    }
-
-    /**
-     * Set whether the bookie is configured to use persistent
-     * entrylogMetadataMap.
-     * @param gcEntryLogMetadataCacheEnabled
-     * @return server configuration
-     */
-    public ServerConfiguration setGcEntryLogMetadataCacheEnabled(
-            boolean gcEntryLogMetadataCacheEnabled) {
-        this.setProperty(GC_ENTRYLOGMETADATA_CACHE_ENABLED, gcEntryLogMetadataCacheEnabled);
-        return this;
-    }
-
-    /**
-     * Get directory to persist Entrylog metadata if
-     * gcPersistentEntrylogMetadataMapEnabled is true.
-     *
-     * @return entrylog metadata-map persistent store dir path.(default: it
-     *         creates a sub-directory under a first available base ledger
-     *         directory with name "entrylogIndexCache").
-     */
-    public String getGcEntryLogMetadataCachePath() {
-        return getString(GC_ENTRYLOG_METADATA_CACHE_PATH, getLedgerDirNames()[0] + "/" + ENTRYLOG_INDEX_CACHE);
-    }
-
-    /**
-     * Set directory to persist Entrylog metadata if gcPersistentEntrylogMetadataMapEnabled is true.
-     *
-     * @param gcPersistentEntrylogMetadataMapPath.
-     * @return server configuration.
-     */
-    public ServerConfiguration setGcEntryLogMetadataCachePath(String gcEntrylogMetadataCachePath) {
-        this.setProperty(GC_ENTRYLOG_METADATA_CACHE_PATH, gcEntrylogMetadataCachePath);
         return this;
     }
 
@@ -3723,16 +3674,6 @@ public class ServerConfiguration extends AbstractConfiguration<ServerConfigurati
      */
     public int getReplicationRateByBytes() {
         return getInt(REPLICATION_RATE_BY_BYTES, -1);
-    }
-
-    /**
-     * Get in flight read entry number when ledger checker.
-     * Default value is -1 which it is unlimited  when ledger checker.
-     *
-     * @return read entry number of in flight.
-     */
-    public int getInFlightReadEntryNumInLedgerChecker(){
-        return getInt(IN_FLIGHT_READ_ENTRY_NUM_IN_LEDGER_CHECKER, -1);
     }
 
     /**
